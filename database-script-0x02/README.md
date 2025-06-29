@@ -6,7 +6,7 @@ This README provides guidance on how to seed the Airbnb-style database with samp
 
 ---
 
-## 🧾 What is Seeding?
+## What is Seeding?
 
 Seeding is the process of populating your database with sample data. It helps:
 
