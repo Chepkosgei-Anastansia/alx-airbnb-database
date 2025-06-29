@@ -125,4 +125,4 @@ Create an Entity-Relationship (ER) diagram based on the provided Airbnb-style da
 
 ## ERD Diagram
 
-![ERD Diagram](Chepkosgei-Anastansia/alx-airbnb-database/ERD/img/ERD.drawio.png)
+![ERD Diagram](/ERD/img/ERD.drawio.png)
