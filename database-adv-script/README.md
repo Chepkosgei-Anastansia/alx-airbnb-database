@@ -109,3 +109,72 @@ This benefits significantly from an index on the `user_id` column in the booking
 ---
 
 These subquery techniques provide complementary approaches for different analytical requirements in database queries.
+
+
+# Aggregations and Window Functions Analysis
+
+## Bookings Count per User Analysis
+
+This query calculates the total number of bookings made by each user. It:
+
+- Combines user and booking data  
+- Counts bookings per user while including users with zero bookings  
+- Presents results in descending order by booking count  
+- Shows user details alongside their booking activity  
+
+---
+
+## Property Ranking by Popularity
+
+This analysis ranks properties based on booking frequency using three different window functions:
+
+### Ranking Methods Compared
+
+1. **Standard Rank**  
+   - Shows competitive position with gaps for ties  
+   - Example: 1st, 2nd, 2nd, 4th place  
+
+2. **Dense Rank**  
+   - Provides consecutive rankings without gaps  
+   - Example: 1st, 2nd, 2nd, 3rd place  
+
+3. **Row Number**  
+   - Assigns unique sequential positions  
+   - Example: 1, 2, 3, 4  
+
+The query also displays:
+
+- Property identification details  
+- Total booking counts  
+- Geographic location information  
+
+---
+
+## Performance Optimization Notes
+
+For optimal performance with these analytical queries:
+
+- Essential indexes should be created on foreign key columns  
+- Date-range filtering recommended for large datasets  
+- Materialized views can be valuable for frequently accessed reports  
+
+---
+
+## Typical Output Structure
+
+**User booking analysis shows:**
+
+- User identification  
+- Personal details  
+- Total bookings count  
+
+**Property ranking displays:**
+
+- Property identification  
+- Name and location  
+- Booking volume  
+- Calculated rank positions  
+
+---
+
+These analyses provide valuable insights into customer behavior and property performance, enabling data-driven business decisions.
