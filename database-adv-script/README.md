@@ -54,8 +54,58 @@ This is the most resource-intensive operation - use judiciously
    - LEFT JOINs ensure data completeness
    - FULL OUTER reveals data quality issues
 
-3. For production:
+4. For production:
    - Monitor join performance
    - Consider query caching
    - Review join strategies periodically
 
+# Subquery Analysis: Property Ratings and User Bookings
+
+## Property Rating Analysis (Non-Correlated Subquery)
+
+This query identifies high-quality properties by finding those with an average rating above 4.0. The non-correlated subquery first calculates average ratings for all properties before filtering in the outer query.
+
+**Key Characteristics:**
+
+- Independent subquery executes first  
+- Returns all properties meeting the quality threshold  
+- Efficient for filtering based on aggregate calculations  
+- Returns properties even without user details  
+
+**Performance Consideration:**  
+The subquery's `GROUP BY` operation benefits from an index on the `property_id` and `rating` columns in the reviews table.
+
+---
+
+## Frequent Bookers Identification (Correlated Subquery)
+
+This analysis pinpoints active users who have made more than 3 bookings using a correlated subquery that:
+
+- Checks each user against their booking count  
+- Executes once for every user record  
+- Maintains relationship between outer and inner queries  
+
+**Key Characteristics:**
+
+- Subquery references outer query's `user_id`  
+- Executes row-by-row  
+- Precisely targets users meeting the activity threshold  
+- More resource-intensive but highly accurate  
+
+**Performance Consideration:**  
+This benefits significantly from an index on the `user_id` column in the bookings table.
+
+---
+
+## Comparative Insights
+
+| Aspect                | Non-Correlated Subquery | Correlated Subquery |
+|-----------------------|-------------------------|---------------------|
+| Execution Pattern     | Runs once independently | Runs per outer row  |
+| Best Use Case         | Aggregate filtering     | Row-specific checks |
+| Performance Profile   | Generally faster        | Potentially slower  |
+| Result Completeness   | May miss some relations | Precise relations   |
+
+---
+
+These subquery techniques provide complementary approaches for different analytical requirements in database queries.
